@@ -1,2 +1,2 @@
 # BSDFEditor
-Simple BSDFEditor. Fully CPU implementation
+Simple BSDFEditor. Full CPU implementation
