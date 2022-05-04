@@ -12,35 +12,35 @@ import coordinate.utility.Utility;
  *
  * @author user
  */
-public class Vector3 implements VCoord<Vector3>{
+public class Vector3_b implements VCoord<Vector3_b>{
     
     public float x, y, z;
     
-    public Vector3() {x = 0; y = 0; z = 0;}
-    public Vector3(float a) {x = a; y = a; z = a;}
-    public Vector3(float a, float b, float c) {x = a; y = b; z = c;}
-    public Vector3(Vector3 a) {x = a.x; y = a.y; z = a.z;}
+    public Vector3_b() {x = 0; y = 0; z = 0;}
+    public Vector3_b(float a) {x = a; y = a; z = a;}
+    public Vector3_b(float a, float b, float c) {x = a; y = b; z = c;}
+    public Vector3_b(Vector3_b a) {x = a.x; y = a.y; z = a.z;}
 
-    public static Vector3 cross(Vector3 a, Vector3 b)
+    public static Vector3_b cross(Vector3_b a, Vector3_b b)
     {
         return a.cross(b);
     }
     
-    public static float dot(Vector3 a, Vector3 b) {return a.x*b.x + a.y*b.y + a.z*b.z;}
+    public static float dot(Vector3_b a, Vector3_b b) {return a.x*b.x + a.y*b.y + a.z*b.z;}
     
     @Override
-    public Vector3 getCoordInstance() {
-        return new Vector3();
+    public Vector3_b getCoordInstance() {
+        return new Vector3_b();
     }
 
     @Override
-    public Vector3 copy() {
-        return new Vector3(x, y, z);
+    public Vector3_b copy() {
+        return new Vector3_b(x, y, z);
     }
     
-    public Point3 asPoint3f()
+    public Point3_b asPoint3f()
     {
-        return new Point3(x, y, z);
+        return new Point3_b(x, y, z);
     }
 
     @Override

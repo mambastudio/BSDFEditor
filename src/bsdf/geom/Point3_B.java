@@ -11,26 +11,26 @@ import coordinate.generic.SCoord;
  *
  * @author user
  */
-public class Point3 implements SCoord<Point3, Vector3> {
+public class Point3_b implements SCoord<Point3_b, Vector3_b> {
 
     public float x, y, z;
     
-    public Point3()
+    public Point3_b()
     {
         
     }
     
-    public Point3(float v)
+    public Point3_b(float v)
     {
         x = y = z = v;
     }
     
-    public Point3(float x, float y, float z)
+    public Point3_b(float x, float y, float z)
     {
         this.x = x; this.y = y; this.z = z;
     }
     
-    public Point3(Point3 p)
+    public Point3_b(Point3_b p)
     {
         this(p.x, p.y, p.z);
     }
@@ -40,33 +40,33 @@ public class Point3 implements SCoord<Point3, Vector3> {
         return x == 0 && y == 0 && z == 0;
     }
     
-    public static final Vector3 sub(Point3 p1, Point3 p2) 
+    public static final Vector3_b sub(Point3_b p1, Point3_b p2) 
     {
-        Vector3 dest = new Vector3();
+        Vector3_b dest = new Vector3_b();
         dest.x = p1.x - p2.x;
         dest.y = p1.y - p2.y;
         dest.z = p1.z - p2.z;
         return dest;
     }
     
-    public final Vector3 asVector3f()
+    public final Vector3_b asVector3f()
     {
-        return new Vector3(x, y, z);
+        return new Vector3_b(x, y, z);
     }
     
     @Override
-    public Point3 getSCoordInstance() {
-        return new Point3();
+    public Point3_b getSCoordInstance() {
+        return new Point3_b();
     }
 
     @Override
-    public Vector3 getVCoordInstance() {
-        return new Vector3();
+    public Vector3_b getVCoordInstance() {
+        return new Vector3_b();
     }
 
     @Override
-    public Point3 copy() {
-        return new Point3(x, y, z);
+    public Point3_b copy() {
+        return new Point3_b(x, y, z);
     }
 
     @Override

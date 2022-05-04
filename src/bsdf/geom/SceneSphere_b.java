@@ -9,17 +9,17 @@ package bsdf.geom;
  *
  * @author user
  */
-public class SceneSphere {
+public class SceneSphere_b {
     // Center of the scene's bounding sphere
-    public Point3 sceneCenter;
+    public Point3_b sceneCenter;
     // Radius of the scene's bounding sphere
     public float sceneRadius;
     // 1.f / (mSceneRadius^2)
     public float invSceneRadiusSqr;
     
-    public SceneSphere()
+    public SceneSphere_b()
     {
-        sceneCenter = new Point3();
+        sceneCenter = new Point3_b();
         sceneRadius = 0;
         invSceneRadiusSqr = 0;
     }

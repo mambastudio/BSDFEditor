@@ -6,7 +6,7 @@
 package bsdf.ui;
 
 
-import bsdf.surface.SurfaceParameter;
+import bsdf.surface.SurfaceParameter_b;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,7 +24,7 @@ import jfx.dnd.WriteObjectsHelper;
  *
  * @author user
  */
-public class SurfaceParameterFX implements Serializable {
+public class SurfaceParameterFX_b implements Serializable {
     public transient BooleanProperty          textureTitledPaneExpanded;    
     public transient BooleanProperty          diffuseTitledPaneExpanded;    
     public transient BooleanProperty          glossyTitledPaneExpanded;    
@@ -39,15 +39,15 @@ public class SurfaceParameterFX implements Serializable {
     
     //brdf parameters
     public transient ObjectProperty<Color>    diffuse_color;
-    public transient Point3FX                 diffuse_param;
+    public transient Point3FX_b                 diffuse_param;
     public transient ObjectProperty<Color>    glossy_color;
-    public transient Point3FX                 glossy_param;
+    public transient Point3FX_b                 glossy_param;
     public transient ObjectProperty<Color>    mirror_color;
-    public transient Point3FX                 mirror_param;
+    public transient Point3FX_b                 mirror_param;
     public transient ObjectProperty<Color>    emission_color;
-    public transient Point3FX                 emission_param;
+    public transient Point3FX_b                 emission_param;
     
-    public SurfaceParameterFX()
+    public SurfaceParameterFX_b()
     {
         init();
     }
@@ -67,18 +67,18 @@ public class SurfaceParameterFX implements Serializable {
         //isTexture.bind(texture.isNotNull());
         
         diffuse_color   = new SimpleObjectProperty(Color.web("#f2f2f2"));
-        diffuse_param   = new Point3FX(1, 0, 0);
+        diffuse_param   = new Point3FX_b(1, 0, 0);
         glossy_color    = new SimpleObjectProperty(Color.web("#f2f2f2"));
-        glossy_param    = new Point3FX(0, 0.01f, 0.01f);
+        glossy_param    = new Point3FX_b(0, 0.01f, 0.01f);
         mirror_color    = new SimpleObjectProperty(Color.web("#f2f2f2"));
-        mirror_param    = new Point3FX(0, -0.01f, 0);
+        mirror_param    = new Point3FX_b(0, -0.01f, 0);
         emission_color  = new SimpleObjectProperty(Color.web("#f2f2f2"));
-        emission_param  = new Point3FX(0, 1f, 0);
+        emission_param  = new Point3FX_b(0, 1f, 0);
     }
     
-    public SurfaceParameterFX copy()
+    public SurfaceParameterFX_b copy()
     {
-        SurfaceParameterFX param = new SurfaceParameterFX();
+        SurfaceParameterFX_b param = new SurfaceParameterFX_b();
         
         param.textureTitledPaneExpanded.set(textureTitledPaneExpanded.get());
         param.diffuseTitledPaneExpanded.set(diffuseTitledPaneExpanded.get());
@@ -102,7 +102,7 @@ public class SurfaceParameterFX implements Serializable {
         return param;
     }
     
-    public void set(SurfaceParameterFX param)
+    public void set(SurfaceParameterFX_b param)
     {
         textureTitledPaneExpanded.set(param.textureTitledPaneExpanded.get());
         diffuseTitledPaneExpanded.set(param.diffuseTitledPaneExpanded.get());
@@ -185,7 +185,7 @@ public class SurfaceParameterFX implements Serializable {
                 emission_param.z);          
     }
         
-    public void setSurfaceParameter(SurfaceParameter param)
+    public void setSurfaceParameter(SurfaceParameter_b param)
     {
         
         diffuse_color.set(param.diffuse_color.getColorFX());
@@ -199,9 +199,9 @@ public class SurfaceParameterFX implements Serializable {
         
     }
     
-    public SurfaceParameter getSurfaceParameter()
+    public SurfaceParameter_b getSurfaceParameter()
     {
-        SurfaceParameter param = new SurfaceParameter();
+        SurfaceParameter_b param = new SurfaceParameter_b();
         
         param.isDiffuseTexture = diffuseTexture.getValue().getImage()!=null;
         param.isGlossyTexture = glossyTexture.getValue().getImage()!=null;

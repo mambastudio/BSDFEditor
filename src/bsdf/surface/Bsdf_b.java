@@ -5,11 +5,11 @@
  */
 package bsdf.surface;
 
-import bsdf.geom.Color4;
-import bsdf.geom.Isect;
-import bsdf.geom.Ray;
-import static bsdf.geom.Util.SampleCosHemisphereW;
-import bsdf.geom.Vector3;
+import bsdf.geom.Color4_b;
+import bsdf.geom.Isect_b;
+import bsdf.geom.Ray_b;
+import static bsdf.geom.Util_b.SampleCosHemisphereW;
+import bsdf.geom.Vector3_b;
 import static coordinate.utility.Utility.EPS_COSINE;
 import static coordinate.utility.Utility.INV_PI_F;
 import coordinate.utility.Value1Df;
@@ -17,14 +17,14 @@ import coordinate.utility.Value2Df;
 import coordinate.utility.Value3Df;
 import static java.lang.Float.max;
 import static java.lang.Math.abs;
-import static bsdf.surface.Bsdf.Events.kDiffuse;
-import static bsdf.surface.Bsdf.Events.kGlossy;
+import static bsdf.surface.Bsdf_b.Events.kDiffuse;
+import static bsdf.surface.Bsdf_b.Events.kGlossy;
 
 /**
  *
  * @author user
  */
-public class Bsdf {
+public class Bsdf_b {
     
     public enum Events
     {
@@ -49,30 +49,30 @@ public class Bsdf {
         }
     }
     
-    public SurfaceParameter  param = null;                 //chosen surface
-    public Frame frame = null;                    //local frame of reference
+    public SurfaceParameter_b  param = null;                 //chosen surface
+    public Frame_b frame = null;                    //local frame of reference
 
-    public Vector3 localDirFix = null;                      //incoming (fixed) incoming direction, in local
-    public Vector3 localGeomN = null;                       //geometry normal (without normal shading) 
+    public Vector3_b localDirFix = null;                      //incoming (fixed) incoming direction, in local
+    public Vector3_b localGeomN = null;                       //geometry normal (without normal shading) 
     
-    public ComponentProbabilities probabilities = null;    //sampling probabilities
+    public ComponentProbabilities_b probabilities = null;    //sampling probabilities
     
-    public Material material = null;
+    public Material_b material = null;
     
-    private Bsdf()
+    private Bsdf_b()
     {
         
     }
     
     
-    public static Bsdf setupBsdf(Ray ray, Isect isect)
+    public static Bsdf_b setupBsdf(Ray_b ray, Isect_b isect)
     {
-        Bsdf bsdf = new Bsdf();
+        Bsdf_b bsdf = new Bsdf_b();
         
         if(isect.hit)
         {            
             //frame for local surface
-            bsdf.frame = new Frame(isect.n);
+            bsdf.frame = new Frame_b(isect.n);
                        
             //set local dir fix for ray incoming
             bsdf.localDirFix = bsdf.frame.toLocal(ray.d.neg());
@@ -93,7 +93,7 @@ public class Bsdf {
             bsdf.param = isect.mat.param;
    
             //get probabilities for selecting type of brdf (except emitter)
-            bsdf.probabilities = new ComponentProbabilities();            
+            bsdf.probabilities = new ComponentProbabilities_b();            
             getComponentProbabilities(bsdf, bsdf.probabilities);            
         }
         return bsdf;
@@ -113,30 +113,30 @@ public class Bsdf {
     // Albedo methods
     ////////////////////////////////////////////////////////////////////////////
 
-    static float AlbedoDiffuse(Bsdf bsdf)
+    static float AlbedoDiffuse(Bsdf_b bsdf)
     {
-       Color4 color = bsdf.param.diffuse_color.mul(bsdf.param.diffuse_param.x);
+       Color4_b color = bsdf.param.diffuse_color.mul(bsdf.param.diffuse_param.x);
        return color.luminance();
     }
 
-    static float AlbedoGlossy(Bsdf bsdf)
+    static float AlbedoGlossy(Bsdf_b bsdf)
     {
-       Color4 color = bsdf.param.glossy_color.mul(bsdf.param.glossy_param.x);
+       Color4_b color = bsdf.param.glossy_color.mul(bsdf.param.glossy_param.x);
        return color.luminance();
     }
 
-    static float AlbedoReflect(Bsdf bsdf)
+    static float AlbedoReflect(Bsdf_b bsdf)
     {
-       Color4 color = bsdf.param.mirror_color.mul(bsdf.param.mirror_param.x);
+       Color4_b color = bsdf.param.mirror_color.mul(bsdf.param.mirror_param.x);
        return color.luminance();
     }
 
-    static float AlbedoRefract(Bsdf bsdf)
+    static float AlbedoRefract(Bsdf_b bsdf)
     {
        return 0;
     }
     
-    static  void getComponentProbabilities(Bsdf bsdf, ComponentProbabilities probabilities)
+    static  void getComponentProbabilities(Bsdf_b bsdf, ComponentProbabilities_b probabilities)
     {
        float albedoDiffuse = AlbedoDiffuse(bsdf);
        float albedoGlossy  = AlbedoGlossy(bsdf);
@@ -173,13 +173,13 @@ public class Bsdf {
        }
     }
     
-    public Color4 SampleDiffuse(       
+    public Color4_b SampleDiffuse(       
         Value2Df       sample,
-        Vector3        localDirGen,
+        Vector3_b        localDirGen,
         Value1Df       pdfW)
     {
         if(localDirFix.z < EPS_COSINE)
-          return new Color4();
+          return new Color4_b();
 
         Value1Df unweightedPdfW = new Value1Df();
         localDirGen.setValue(SampleCosHemisphereW(sample, unweightedPdfW));
@@ -188,23 +188,23 @@ public class Bsdf {
         return param.diffuse_color.mul(INV_PI_F); 
     }
     
-    public Color4 SampleGlossy(        
+    public Color4_b SampleGlossy(        
         Value2Df       sample,
-        Vector3        localDirGen,
+        Vector3_b        localDirGen,
         Value1Df       pdfW)
     {
         return null;
     }
     
-    public Color4 EvaluateDiffuse(        
-        Vector3        localDirGen,
+    public Color4_b EvaluateDiffuse(        
+        Vector3_b        localDirGen,
         Value1Df       directPdfW)
     {
         if(probabilities.diffProb == 0)
-          return new Color4();
+          return new Color4_b();
 
         if(localDirFix.z < EPS_COSINE || localDirGen.z < EPS_COSINE)
-          return new Color4();
+          return new Color4_b();
 
         if(directPdfW != null)
             directPdfW.x += probabilities.diffProb * max(0.f, localDirGen.z * INV_PI_F);
@@ -212,21 +212,21 @@ public class Bsdf {
        return param.diffuse_color.mul(INV_PI_F); 
     }
     
-    public Color4 EvaluateGlossy(        
-        Vector3        localDirGen,
+    public Color4_b EvaluateGlossy(        
+        Vector3_b        localDirGen,
         Value1Df       directPdfW)
     {
-        return new Color4();
+        return new Color4_b();
     }
     
-    public Color4 Evaluate(        
-        Vector3         worldDirGen,
+    public Color4_b Evaluate(        
+        Vector3_b         worldDirGen,
         Value1Df        directPdfW,
         Value1Df        cosThetaGen)
     {
-       Color4 result = new Color4();
+       Color4_b result = new Color4_b();
 
-       Vector3 localDirGen = frame.toLocal(worldDirGen); 
+       Vector3_b localDirGen = frame.toLocal(worldDirGen); 
 
        if(localDirGen.z * localDirFix.z < 0)
            return result;
@@ -239,9 +239,9 @@ public class Bsdf {
        return result;
     }
     
-    public Color4 SampleBsdf(        
+    public Color4_b SampleBsdf(        
         Value3Df       sample,
-        Vector3        worldDirGen,
+        Vector3_b        worldDirGen,
         Value1Df       pdfW,
         Value1Df       cosThetaGen)
     {
@@ -253,8 +253,8 @@ public class Bsdf {
            sampledEvent = kGlossy;
 
 
-        Color4 result = new Color4();
-        Vector3 localDirGen = new Vector3();
+        Color4_b result = new Color4_b();
+        Vector3_b localDirGen = new Vector3_b();
 
         //sample the selected bsdf and evaluate the rest of the bsdfs
         switch(sampledEvent)
@@ -264,7 +264,7 @@ public class Bsdf {
               result.addAssign(SampleDiffuse(sample.getXY(), localDirGen, pdfW));
 
               if(result.isBlack())
-                 return new Color4();
+                 return new Color4_b();
 
               result.addAssign(EvaluateGlossy(localDirGen, pdfW));
               break;
@@ -273,7 +273,7 @@ public class Bsdf {
            {
               result.addAssign(SampleGlossy(sample.getXY(), localDirGen, pdfW));
               if(result.isBlack())
-                 return new Color4();
+                 return new Color4_b();
               result.addAssign(EvaluateDiffuse(localDirGen, pdfW));
 
               break;
@@ -283,7 +283,7 @@ public class Bsdf {
         //calculate costheta from generated direction
         cosThetaGen.x   = abs(localDirGen.z);
         if(cosThetaGen.x < EPS_COSINE)
-          return new Color4();
+          return new Color4_b();
 
         //transform the generated local direction to world coordinate
         worldDirGen.setValue(frame.toWorld(localDirGen));

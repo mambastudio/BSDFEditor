@@ -5,7 +5,7 @@
  */
 package bsdf.ui;
 
-import bsdf.geom.Point4;
+import bsdf.geom.Point4_b;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 
@@ -13,13 +13,13 @@ import javafx.beans.property.SimpleFloatProperty;
  *
  * @author user
  */
-public class Point4FX  {
+public class Point4FX_b  {
     public FloatProperty x;
     public FloatProperty y;
     public FloatProperty z;
     public FloatProperty w;
     
-    public Point4FX()
+    public Point4FX_b()
     {
         x = new SimpleFloatProperty();
         y = new SimpleFloatProperty();
@@ -27,7 +27,7 @@ public class Point4FX  {
         w = new SimpleFloatProperty();
     }
     
-    public Point4FX(Point4 p)
+    public Point4FX_b(Point4_b p)
     {
         this();
         x.setValue(p.get(0));
@@ -36,7 +36,7 @@ public class Point4FX  {
         w.setValue(p.get(3));
     }
     
-    public Point4FX(float fx, float fy, float fz, float fw)
+    public Point4FX_b(float fx, float fy, float fz, float fw)
     {
         this();
         x.setValue(fx);
@@ -93,7 +93,7 @@ public class Point4FX  {
         w.setValue(v);
     }
     
-    public void set(Point4FX point)
+    public void set(Point4FX_b point)
     {
         this.x.set(point.getX());
         this.y.set(point.getY());
@@ -121,9 +121,9 @@ public class Point4FX  {
     }
     
     
-    public Point4 getPoint4()
+    public Point4_b getPoint4()
     {
-        return new Point4(x.floatValue(), y.floatValue(), z.floatValue(), w.floatValue());
+        return new Point4_b(x.floatValue(), y.floatValue(), z.floatValue(), w.floatValue());
     }
     
 }

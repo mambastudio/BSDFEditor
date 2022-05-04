@@ -5,11 +5,11 @@
  */
 package bsdf.abstracts;
 
-import bsdf.geom.BBox;
-import bsdf.geom.Isect;
-import bsdf.geom.Point3;
-import bsdf.geom.Ray;
-import bsdf.surface.Material;
+import bsdf.geom.BBox_b;
+import bsdf.geom.Isect_b;
+import bsdf.geom.Point3_b;
+import bsdf.geom.Ray_b;
+import bsdf.surface.Material_b;
 import coordinate.generic.raytrace.AbstractAccelerator;
 import coordinate.generic.raytrace.AbstractPrimitive;
 
@@ -17,6 +17,6 @@ import coordinate.generic.raytrace.AbstractPrimitive;
  *
  * @author user
  */
-public interface Primitive extends AbstractPrimitive<Point3, Ray, Isect, AbstractAccelerator<Ray, Isect, Primitive, BBox>, BBox>{
-    public Material getMaterial(int index);
+public interface Primitive_b extends AbstractPrimitive<Point3_b, Ray_b, Isect_b, AbstractAccelerator<Ray_b, Isect_b, Primitive_b, BBox_b>, BBox_b>{
+    public Material_b getMaterial(int index);
 }

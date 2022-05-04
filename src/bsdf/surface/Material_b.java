@@ -5,21 +5,21 @@
  */
 package bsdf.surface;
 
-import bsdf.abstracts.MaterialInterface;
 import coordinate.parser.attribute.MaterialT;
+import bsdf.abstracts.MaterialInterface_b;
 
 /**
  *
  * @author user
  */
-public class Material implements MaterialInterface<Material>{
+public class Material_b implements MaterialInterface_b<Material_b>{
      //surface
-    public SurfaceParameter param; 
+    public SurfaceParameter_b param; 
        
 
-    public Material()
+    public Material_b()
     {
-        param = new SurfaceParameter();
+        param = new SurfaceParameter_b();
     }
     
     public void setDiffuse(float r, float g, float b)
@@ -35,18 +35,18 @@ public class Material implements MaterialInterface<Material>{
     }
     
     @Override
-    public void setMaterial(Material mat) {
+    public void setMaterial(Material_b mat) {
         param = mat.param.copy();              
     }
 
     @Override
-    public Material copy() {
-        Material mat = new Material();
+    public Material_b copy() {
+        Material_b mat = new Material_b();
         mat.param = param.copy();
         return mat;
     }
     
-    public void setSurfaceParameter(SurfaceParameter param)
+    public void setSurfaceParameter(SurfaceParameter_b param)
     {
         this.param = param;
     }

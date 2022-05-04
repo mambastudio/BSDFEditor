@@ -13,39 +13,39 @@ import static java.lang.Math.min;
  *
  * @author user
  */
-public class BBox implements AbstractBound<Point3, Vector3, Ray, BBox>{
-    public Point3 minimum;
-    public Point3 maximum;
+public class BBox_b implements AbstractBound<Point3_b, Vector3_b, Ray_b, BBox_b>{
+    public Point3_b minimum;
+    public Point3_b maximum;
     
-    public BBox() 
+    public BBox_b() 
     {
-        minimum = new Point3(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY);
-        maximum = new Point3(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
+        minimum = new Point3_b(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY);
+        maximum = new Point3_b(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
     }
     
-    public BBox(Point3 p) 
+    public BBox_b(Point3_b p) 
     {
-        minimum = new Point3(p);
-        maximum = new Point3(p);
+        minimum = new Point3_b(p);
+        maximum = new Point3_b(p);
     }
     
-    public BBox(Point3 p1, Point3 p2) 
+    public BBox_b(Point3_b p1, Point3_b p2) 
     {
-        minimum = new Point3(//
+        minimum = new Point3_b(//
                 min(p1.x, p2.x), min(p1.y, p2.y), min(p1.z, p2.z));
-        maximum = new Point3(//
+        maximum = new Point3_b(//
                 max(p1.x, p2.x), max(p1.y, p2.y), max(p1.z, p2.z));
     }
     
-    public BBox(float x1, float y1, float z1, float x2, float y2, float z2) {
-        minimum = new Point3(//
+    public BBox_b(float x1, float y1, float z1, float x2, float y2, float z2) {
+        minimum = new Point3_b(//
                 min(x1, x2), min(y1, y2), min(z1, z2));
-        maximum = new Point3(//
+        maximum = new Point3_b(//
                 max(x1, x2), max(y1, y2), max(z1, z2));
     }
     
     @Override
-    public void include(Point3 p) {
+    public void include(Point3_b p) {
         if (p != null) {
             if (p.x < minimum.x)
                 minimum.x = p.x;
@@ -63,8 +63,8 @@ public class BBox implements AbstractBound<Point3, Vector3, Ray, BBox>{
     }
     
     @Override
-    public Point3 getCenter() {
-        Point3 dest = new Point3();
+    public Point3_b getCenter() {
+        Point3_b dest = new Point3_b();
         dest.x = 0.5f * (minimum.x + maximum.x);
         dest.y = 0.5f * (minimum.y + maximum.y);
         dest.z = 0.5f * (minimum.z + maximum.z);
@@ -78,16 +78,16 @@ public class BBox implements AbstractBound<Point3, Vector3, Ray, BBox>{
     
     public float getArea()
     {
-        Vector3 w = this.getExtents();
+        Vector3_b w = this.getExtents();
         float ax = Math.max(w.x, 0);
         float ay = Math.max(w.y, 0);
         float az = Math.max(w.z, 0);
         return 2 * (ax * ay + ay * az + az * ax);
     }
     
-    public Vector3 offset(Point3 p)
+    public Vector3_b offset(Point3_b p)
     {
-        Vector3 o = p.sub(minimum);
+        Vector3_b o = p.sub(minimum);
         if(maximum.x > minimum.x) o.x /= maximum.x - minimum.x;
         if(maximum.y > minimum.y) o.y /= maximum.y - minimum.y;
         if(maximum.z > minimum.z) o.z /= maximum.z - minimum.z;
@@ -95,18 +95,18 @@ public class BBox implements AbstractBound<Point3, Vector3, Ray, BBox>{
     }
 
     @Override
-    public Point3 getMinimum() {
+    public Point3_b getMinimum() {
         return minimum;
     }
 
     @Override
-    public Point3 getMaximum() {
+    public Point3_b getMaximum() {
         return maximum;
     }
 
     @Override
-    public BBox getInstance() {
-        return new BBox();
+    public BBox_b getInstance() {
+        return new BBox_b();
     }
     
     @Override
@@ -115,7 +115,7 @@ public class BBox implements AbstractBound<Point3, Vector3, Ray, BBox>{
     } 
     
     @Override
-    public boolean intersectP(Ray ray)
+    public boolean intersectP(Ray_b ray)
     {
         float tmin = (get(ray.sign[0]).x - ray.getOrigin().x) * ray.getInverseDirection().x;
         float tmax = (get(1-ray.sign[0]).x - ray.getOrigin().x) * ray.getInverseDirection().x;
@@ -138,7 +138,7 @@ public class BBox implements AbstractBound<Point3, Vector3, Ray, BBox>{
         return ( (tmin < ray.getMax()) && (tmax > ray.getMin()));
     }
     
-    public boolean intersectP(Ray ray, float[] t)
+    public boolean intersectP(Ray_b ray, float[] t)
     {
         float tmin = (get(ray.sign[0]).x - ray.getOrigin().x) * ray.getInverseDirection().x;
         float tmax = (get(1-ray.sign[0]).x - ray.getOrigin().x) * ray.getInverseDirection().x;
@@ -177,14 +177,14 @@ public class BBox implements AbstractBound<Point3, Vector3, Ray, BBox>{
         maximum.z += Math.max(eps, Math.ulp(maximum.z));
     }
     
-    public Vector3 extents()
+    public Vector3_b extents()
     {
         return maximum.sub(minimum);
     }
     
     @Override
-    public BBox clone() 
+    public BBox_b clone() 
     {        
-        return new BBox(minimum, maximum);
+        return new BBox_b(minimum, maximum);
     }
 }

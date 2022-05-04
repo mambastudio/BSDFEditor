@@ -12,13 +12,13 @@ import coordinate.model.Transform;
  *
  * @author user
  */
-public class Camera extends CameraModel <Point3, Vector3, Ray>{
+public class Camera_b extends CameraModel <Point3_b, Vector3_b, Ray_b>{
     
-    public Camera(Point3 position, Point3 lookat, Vector3 up, float horizontalFOV) {
+    public Camera_b(Point3_b position, Point3_b lookat, Vector3_b up, float horizontalFOV) {
         super(position.copy(), lookat.copy(), up.copy(), horizontalFOV);
     }
     
-    public void set(Point3 position, Point3 lookat, Vector3 up, float horizontalFOV)
+    public void set(Point3_b position, Point3_b lookat, Vector3_b up, float horizontalFOV)
     {
         this.position = position.copy();
         this.lookat = lookat.copy();
@@ -28,8 +28,8 @@ public class Camera extends CameraModel <Point3, Vector3, Ray>{
     }
 
     @Override
-    public Camera copy() {
-        Camera camera = new Camera(position, lookat, up, fov);
+    public Camera_b copy() {
+        Camera_b camera = new Camera_b(position, lookat, up, fov);
         camera.setUp();
         return camera;
     }

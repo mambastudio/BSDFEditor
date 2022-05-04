@@ -5,8 +5,7 @@
  */
 package bsdf.ui;
 
-import bsdf.abstracts.MaterialInterface;
-import bsdf.surface.Material;
+import bsdf.surface.Material_b;
 import coordinate.parser.attribute.MaterialT;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -18,26 +17,27 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import jfx.dnd.ReadObjectsHelper;
 import jfx.dnd.WriteObjectsHelper;
+import bsdf.abstracts.MaterialInterface_b;
 
 /**
  *
  * @author user
  */
-public class MaterialFX implements Serializable, MaterialInterface<MaterialFX>{
+public class MaterialFX_b implements Serializable, MaterialInterface_b<MaterialFX_b>{
     //surface
-    public transient SurfaceParameterFX param; 
+    public transient SurfaceParameterFX_b param; 
     public transient StringProperty name;    
-    private transient Material cmaterial;
+    private transient Material_b cmaterial;
     
-    public MaterialFX(String name)
+    public MaterialFX_b(String name)
     {
         this();
         this.name.set(name);
     }
     
-    public MaterialFX()
+    public MaterialFX_b()
     {
-        param = new SurfaceParameterFX();        
+        param = new SurfaceParameterFX_b();        
         name = new SimpleStringProperty("default");
     }
     
@@ -67,11 +67,11 @@ public class MaterialFX implements Serializable, MaterialInterface<MaterialFX>{
     
     public final void init()
     {
-        param = new SurfaceParameterFX();        
+        param = new SurfaceParameterFX_b();        
         name = new SimpleStringProperty("default");
     }
     
-    public void setMaterial(Material material)
+    public void setMaterial(Material_b material)
     {
         this.cmaterial = material;        
         param.setSurfaceParameter(material.param);        
@@ -86,15 +86,15 @@ public class MaterialFX implements Serializable, MaterialInterface<MaterialFX>{
     }
 
     @Override
-    public void setMaterial(MaterialFX m) {
+    public void setMaterial(MaterialFX_b m) {
         param.set(m.param);
         name.set(m.name.get());
         refreshMaterial();        
     }
 
     @Override
-    public MaterialFX copy() {
-        MaterialFX mat = new MaterialFX();
+    public MaterialFX_b copy() {
+        MaterialFX_b mat = new MaterialFX_b();
         mat.param.set(param);
         mat.name.set(name.get());
         return mat;
@@ -189,7 +189,7 @@ public class MaterialFX implements Serializable, MaterialInterface<MaterialFX>{
 
     private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
         init();      
-        param = (SurfaceParameterFX) s.readObject();        
+        param = (SurfaceParameterFX_b) s.readObject();        
         ReadObjectsHelper.readAllProp(s, 
                 name);
         

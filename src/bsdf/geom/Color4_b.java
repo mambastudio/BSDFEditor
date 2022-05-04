@@ -11,22 +11,22 @@ import javafx.scene.paint.Color;
  *
  * @author user
  */
-public class Color4 {
+public class Color4_b {
     public float r, g, b, w;
     
-    public Color4()
+    public Color4_b()
     {
         r = g = b = 0;
         w = 1;
     }
     
-    public Color4(float r, float g, float b)
+    public Color4_b(float r, float g, float b)
     {
         this.r = r; this.g = g; this.b = b;
         this.w = 1;
     }
     
-    public Color4(float r, float g, float b, float w)
+    public Color4_b(float r, float g, float b, float w)
     {
         this(r, g, b);
         this.w = w;
@@ -37,18 +37,25 @@ public class Color4 {
         return r <= 0 && g <= 0 && b <= 0;
     }
     
-    public final void addAssign(Color4 c)
+    public final void addAssign(Color4_b c)
     {
         r += c.r;
         g += c.g;
         b += c.b;
     }
     
-    public final Color4 mul(float s)
+    public final Color4_b mul(float s)
     {
-        return new Color4(r * s,
+        return new Color4_b(r * s,
                           g * s,
                           b * s);
+    }
+    
+    public final Color4_b mul(Color4_b s)
+    {
+        return new Color4_b(r * s.r,
+                          g * s.g,
+                          b * s.b);
     }
     
     public float luminance()
@@ -83,14 +90,19 @@ public class Color4 {
         return new Color(r, g, b, w);
     }
 
-    public Color4 copy()
+    public Color4_b copy()
     {
-        return new Color4(r, g, b, w);
+        return new Color4_b(r, g, b, w);
     }
     
     private float[] getArray()
     {
         return new float[]{r, g, b, w};
+    }
+    
+    public bitmap.Color getBitmapColor()
+    {        
+        return new bitmap.Color(r, g, b);
     }
     
     @Override

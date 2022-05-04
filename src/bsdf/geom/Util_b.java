@@ -14,21 +14,21 @@ import coordinate.utility.Value2Df;
  *
  * @author user
  */
-public class Util {
+public class Util_b {
     //////////////////////////////////////////////////////////////////////////
     /// Sample direction in the upper hemisphere with cosine-proportional pdf
     /** The returned PDF is with respect to solid angle measure
      * @param aSamples
      * @param oPdfW
      * @return  */
-    public static Vector3 SampleCosHemisphereW(
+    public static Vector3_b SampleCosHemisphereW(
         Value2Df        aSamples,
         Value1Df        oPdfW)
     {
         float term1 = 2.f * PI_F * aSamples.x;
         float term2 = (float) Math.sqrt(1.f - aSamples.y);
 
-        Vector3 ret = new Vector3(
+        Vector3_b ret = new Vector3_b(
             (float)Math.cos(term1) * term2,
             (float)Math.sin(term1) * term2,
             (float)Math.sqrt(aSamples.y));

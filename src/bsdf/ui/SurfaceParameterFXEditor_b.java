@@ -27,13 +27,13 @@ import jfx.form.SimpleSetting;
  *
  * @author user
  */
-public class SurfaceParameterFXEditor extends ScrollPane {
-    private final SurfaceParameterFX param;
+public class SurfaceParameterFXEditor_b extends ScrollPane {
+    private final SurfaceParameterFX_b param;
     
     FileChooser fc = new FileChooser();
     Supplier<ImageView> fileImageExplorer;
     
-    public SurfaceParameterFXEditor(SurfaceParameterFX param)
+    public SurfaceParameterFXEditor_b(SurfaceParameterFX_b param)
     {
         super();
         

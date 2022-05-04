@@ -12,21 +12,21 @@ import coordinate.struct.structfloat.FloatStruct;
  *
  * @author user
  */
-public class Point4 extends FloatStruct implements SCoord<Point4, Vector4>{
+public class Point4_b extends FloatStruct implements SCoord<Point4_b, Vector4_b>{
     public float x, y, z, w;
     
-    public Point4(){
+    public Point4_b(){
         super();
     }
 
-    public Point4(float x, float y, float z, float w) {
+    public Point4_b(float x, float y, float z, float w) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.w = w;
     }
 
-    public Point4(Point4 p) {
+    public Point4_b(Point4_b p) {
         x = p.x;
         y = p.y;
         z = p.z;
@@ -35,8 +35,8 @@ public class Point4 extends FloatStruct implements SCoord<Point4, Vector4>{
                 
     
        
-    public Point4 setValue(float x, float y, float z, float w) {
-        Point4 p = SCoord.super.setValue(x, y, z);
+    public Point4_b setValue(float x, float y, float z, float w) {
+        Point4_b p = SCoord.super.setValue(x, y, z);
         this.refreshGlobalArray();
         return p;
     }
@@ -97,18 +97,18 @@ public class Point4 extends FloatStruct implements SCoord<Point4, Vector4>{
     }
 
     @Override
-    public Point4 copy() {
-        return new Point4(x, y, z, w);
+    public Point4_b copy() {
+        return new Point4_b(x, y, z, w);
     }
 
     @Override
-    public Point4 getSCoordInstance() {
-        return new Point4();
+    public Point4_b getSCoordInstance() {
+        return new Point4_b();
     }
 
     @Override
-    public Vector4 getVCoordInstance() {
-        return new Vector4();
+    public Vector4_b getVCoordInstance() {
+        return new Vector4_b();
     }
     
     @Override

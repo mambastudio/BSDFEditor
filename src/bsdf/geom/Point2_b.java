@@ -11,13 +11,13 @@ import coordinate.generic.AbstractCoordinateFloat;
  *
  * @author user
  */
-public class Point2  implements AbstractCoordinateFloat
+public class Point2_b  implements AbstractCoordinateFloat
 {
 
     public float x, y;
     
-    public Point2(){}
-    public Point2(float x, float y){this.x = x; this.y = y;}
+    public Point2_b(){}
+    public Point2_b(float x, float y){this.x = x; this.y = y;}
     
     @Override
     public float get(char axis) {

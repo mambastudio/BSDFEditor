@@ -6,14 +6,14 @@
 package bsdf.surface;
 
 import bitmap.Color;
-import bsdf.geom.Color4;
-import bsdf.geom.Point3;
+import bsdf.geom.Color4_b;
+import bsdf.geom.Point3_b;
 
 /**
  *
  * @author user
  */
-public class SurfaceParameter{
+public class SurfaceParameter_b{
     //this surface is done by texture
     public boolean          isDiffuseTexture;
     public boolean          isGlossyTexture;
@@ -21,35 +21,35 @@ public class SurfaceParameter{
     public boolean          isMirrorTexture;
     
     //brdf parameters
-    public Color4          diffuse_color;
-    public Point3          diffuse_param;
-    public Color4          glossy_color;
-    public Point3          glossy_param;
-    public Color4          mirror_color;
-    public Point3          mirror_param;
-    public Color4          emission_color;
-    public Point3          emission_param;
+    public Color4_b          diffuse_color;
+    public Point3_b          diffuse_param;
+    public Color4_b          glossy_color;
+    public Point3_b          glossy_param;
+    public Color4_b          mirror_color;
+    public Point3_b          mirror_param;
+    public Color4_b          emission_color;
+    public Point3_b          emission_param;
     
-    public SurfaceParameter()
+    public SurfaceParameter_b()
     {
         isDiffuseTexture = false;
         isGlossyTexture = false;
         isRoughnessTexture = false;
         isMirrorTexture = false;
         
-        diffuse_color   = new Color4(0.95f, 0.95f, 0.95f);
-        diffuse_param   = new Point3(1, 0, 0);
-        glossy_color    = new Color4(0.95f, 0.95f, 0.95f);
-        glossy_param    = new Point3();
-        mirror_color    = new Color4(0.95f, 0.95f, 0.95f);
-        mirror_param    = new Point3();
-        emission_color  = new Color4(1f, 1f, 1f);
-        emission_param  = new Point3();
+        diffuse_color   = new Color4_b(0.95f, 0.95f, 0.95f);
+        diffuse_param   = new Point3_b(1, 0, 0);
+        glossy_color    = new Color4_b(0.95f, 0.95f, 0.95f);
+        glossy_param    = new Point3_b();
+        mirror_color    = new Color4_b(0.95f, 0.95f, 0.95f);
+        mirror_param    = new Point3_b();
+        emission_color  = new Color4_b(1f, 1f, 1f);
+        emission_param  = new Point3_b();
     }
     
-    public SurfaceParameter copy()
+    public SurfaceParameter_b copy()
     {
-        SurfaceParameter param    = new SurfaceParameter();
+        SurfaceParameter_b param    = new SurfaceParameter_b();
         param.isDiffuseTexture      = isDiffuseTexture;
         param.isGlossyTexture       = isGlossyTexture;
         param.isRoughnessTexture    = isRoughnessTexture;

@@ -5,31 +5,31 @@
  */
 package bsdf.geom;
 
-import bsdf.abstracts.Primitive;
-import bsdf.surface.Material;
+import bsdf.surface.Material_b;
 import coordinate.generic.raytrace.AbstractIntersection;
+import bsdf.abstracts.Primitive_b;
 
 /**
  *
  * @author user
  */
-public class Isect implements AbstractIntersection{
-   public Point3 p;
-   public Vector3 n;
-   public Vector3 ng;
-   public Vector3 d;
-   public Point2  uv;
-   public Material mat;
+public class Isect_b implements AbstractIntersection{
+   public Point3_b p;
+   public Vector3_b n;
+   public Vector3_b ng;
+   public Vector3_b d;
+   public Point2_b  uv;
+   public Material_b mat;
    public int id;
-   public Primitive primitive;
+   public Primitive_b primitive;
    public boolean hit;  
    
-   public Isect()
+   public Isect_b()
    {
-       this.p = new Point3();
-       this.n = new Vector3();
-       this.d = new Vector3();
-       this.uv = new Point2();
+       this.p = new Point3_b();
+       this.n = new Vector3_b();
+       this.d = new Vector3_b();
+       this.uv = new Point2_b();
        this.mat = null;
        this.id = -1;
        this.hit = false;

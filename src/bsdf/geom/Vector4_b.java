@@ -11,12 +11,12 @@ import coordinate.generic.VCoord;
  *
  * @author user
  */
-public class Vector4 implements VCoord{
+public class Vector4_b implements VCoord{
     
     public float x, y, z, w;
-    public Vector4(){}
-    public Vector4(float x, float y, float z, float w){this.x = x; this.y = y; this.z = z; this.w = w;};
-    public Vector4(Vector4 v) {this.x = v.x; this.y = v.y; this.z = v.z; this.w = v.w;}
+    public Vector4_b(){}
+    public Vector4_b(float x, float y, float z, float w){this.x = x; this.y = y; this.z = z; this.w = w;};
+    public Vector4_b(Vector4_b v) {this.x = v.x; this.y = v.y; this.z = v.z; this.w = v.w;}
 
     @Override
     public VCoord getCoordInstance() {
@@ -25,7 +25,7 @@ public class Vector4 implements VCoord{
 
     @Override
     public VCoord copy() {
-        return new Vector4(x, y, z, w);
+        return new Vector4_b(x, y, z, w);
     }
 
     @Override

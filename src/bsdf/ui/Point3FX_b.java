@@ -5,7 +5,7 @@
  */
 package bsdf.ui;
 
-import bsdf.geom.Point3;
+import bsdf.geom.Point3_b;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 
@@ -13,17 +13,17 @@ import javafx.beans.property.SimpleFloatProperty;
  *
  * @author user
  */
-public class Point3FX {
+public class Point3FX_b {
     public FloatProperty x;
     public FloatProperty y;
     public FloatProperty z;
     
-    public Point3FX()
+    public Point3FX_b()
     {
         init();
     }
     
-    public Point3FX(Point3 p)
+    public Point3FX_b(Point3_b p)
     {
         this();
         x.setValue(p.get(0));
@@ -31,7 +31,7 @@ public class Point3FX {
         z.setValue(p.get(2));
     }
     
-    public Point3FX(float fx, float fy, float fz)
+    public Point3FX_b(float fx, float fy, float fz)
     {
         this();
         x.setValue(fx);
@@ -76,7 +76,7 @@ public class Point3FX {
         z.setValue(v);
     }
     
-    public void set(Point3FX point)
+    public void set(Point3FX_b point)
     {
         this.x.set(point.getX());
         this.y.set(point.getY());
@@ -98,12 +98,12 @@ public class Point3FX {
         return z;
     }
     
-    public Point3 getPoint3()
+    public Point3_b getPoint3()
     {
-        return new Point3(x.floatValue(), y.floatValue(), z.floatValue());
+        return new Point3_b(x.floatValue(), y.floatValue(), z.floatValue());
     }
     
-    public void set(Point3 p)
+    public void set(Point3_b p)
     {
         x.setValue(p.get(0));
         y.setValue(p.get(1));

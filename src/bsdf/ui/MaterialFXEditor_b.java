@@ -20,15 +20,15 @@ import jfx.form.SimpleSetting;
  *
  * @author user
  */
-public class MaterialFXEditor extends HBox{
-    private final MaterialFX materialFX;
+public class MaterialFXEditor_b extends HBox{
+    private final MaterialFX_b materialFX;
     
     private VBox leftNode = null;
-    private SurfaceParameterFXEditor rightNode = null;
+    private SurfaceParameterFXEditor_b rightNode = null;
     
     private ImageView renderImageView;
     
-    public MaterialFXEditor(MaterialFX mat)
+    public MaterialFXEditor_b(MaterialFX_b mat)
     {
         this.materialFX = mat;        
         init();
@@ -37,7 +37,7 @@ public class MaterialFXEditor extends HBox{
     public final void init()
     {
         leftNode = new VBox();
-        rightNode = new SurfaceParameterFXEditor(materialFX.param);
+        rightNode = new SurfaceParameterFXEditor_b(materialFX.param);
         rightNode.setFitToWidth(true);
         HBox.setHgrow(rightNode, Priority.ALWAYS);
         
@@ -60,7 +60,7 @@ public class MaterialFXEditor extends HBox{
         this.requestFocus();
     }
     
-    public MaterialFX getEditedMaterial()
+    public MaterialFX_b getEditedMaterial()
     {
         
         return materialFX;
