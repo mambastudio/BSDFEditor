@@ -8,12 +8,14 @@ package bsdf.render;
 import bitmap.display.ImageDisplay;
 import bsdf.Scene_b;
 import bsdf.abstracts.AbstractLight_b;
+import bsdf.abstracts.EnvLight_b;
 import bsdf.abstracts.Renderer_b;
 import bsdf.geom.Color4_b;
 import bsdf.geom.Isect_b;
 import bsdf.geom.Point3_b;
 import bsdf.geom.Ray_b;
 import bsdf.geom.Vector3_b;
+import bsdf.light.NullBackground;
 import bsdf.surface.Bsdf_b;
 import bsdf.ui.RenderImageFX_b;
 import coordinate.utility.Value1Df;
@@ -142,12 +144,8 @@ public class PathTrace_b implements Renderer_b<ImageDisplay> {
                                 color.addAssign(contrib.mul(pathWeight));   
                                 scene.getEnvLight().accumLightGrid(radiance, isect.n, isect.p, directionToLight);
                                 
-                                InfiniteAreaLight background = scene.getEnvLight();
-                                if(background.doSampleFromLightGrid)
-                                {
-                                   // float pdf = background.pdfLightGrid(directionToLight, isect.p);
-                                  //  System.out.println(pdf);
-                                }
+                                EnvLight_b background = scene.getEnvLight();
+                                
                             }
 
                         }

@@ -15,6 +15,7 @@ import bsdf.geom.Point3_b;
 import bsdf.geom.Ray_b;
 import bsdf.geom.SceneSphere_b;
 import bsdf.geom.Vector3_b;
+import bsdf.light.LightCache;
 import bsdf.light.NullBackground;
 import coordinate.model.OrientationModel;
 

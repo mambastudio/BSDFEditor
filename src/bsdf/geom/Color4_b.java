@@ -111,4 +111,16 @@ public class Color4_b {
         float[] array = getArray();
         return String.format("(%3.2f, %3.2f, %3.2f, %3.2f)", array[0], array[1], array[2], array[3]);
     }
+
+    public void mulAssign(Color4_b c) {
+        r *= c.r;
+        g *= c.g;
+        b *= c.b;
+    }
+
+    public final boolean isBad()
+    {
+        return (Float.isNaN(this.r)) || (Float.isNaN(this.g)) || (Float.isNaN(this.b)) ||
+               (Float.isInfinite(this.r)) || (Float.isInfinite(this.g)) || (Float.isInfinite(this.b));
+    }
 }
