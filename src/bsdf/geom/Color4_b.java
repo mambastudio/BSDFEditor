@@ -5,122 +5,111 @@
  */
 package bsdf.geom;
 
+import bitmap.spectrum.CoefficientSpectrum;
+import bitmap.spectrum.Spectrum;
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 
 /**
  *
  * @author user
  */
-public class Color4_b {
-    public float r, g, b, w;
+public class Color4_b extends CoefficientSpectrum<Color4_b>{
+    
     
     public Color4_b()
     {
-        r = g = b = 0;
-        w = 1;
+        super(3);        
+    }
+    
+    public Color4_b(float a)
+    {
+        super(new float[]{a, a, a});
     }
     
     public Color4_b(float r, float g, float b)
     {
-        this.r = r; this.g = g; this.b = b;
-        this.w = 1;
+        super(new float[]{r, g, b});
     }
     
-    public Color4_b(float r, float g, float b, float w)
+    public Color4_b(double r, double g, double b)
     {
-        this(r, g, b);
-        this.w = w;
+        this((float)r, (float)g, (float)b);
     }
     
-    public final boolean isBlack()
+    public float r()
     {
-        return r <= 0 && g <= 0 && b <= 0;
+        return c[0];
     }
     
-    public final void addAssign(Color4_b c)
+    public float g()
     {
-        r += c.r;
-        g += c.g;
-        b += c.b;
+        return c[1];
     }
     
-    public final Color4_b mul(float s)
+    public float b()
     {
-        return new Color4_b(r * s,
-                          g * s,
-                          b * s);
-    }
-    
-    public final Color4_b mul(Color4_b s)
-    {
-        return new Color4_b(r * s.r,
-                          g * s.g,
-                          b * s.b);
+        return c[2];
     }
     
     public float luminance()
     {
-        return 0.212671f * r + 
-               0.715160f * g +
-               0.072169f * b;
+        return 0.212671f * r() + 
+               0.715160f * g() +
+               0.072169f * b();
     }
-    
+       
     public void setColorFX(Color color)
-    {
-        set(color.getRed(), color.getGreen(), color.getBlue());
-    }
-    
-    public void set(float r, float g, float b)
-    {
-        this.r = r; this.g = g; this.b = b;
-    }
-    
-    public void set(float r, float g, float b, float w)
-    {
-        this.r = r; this.g = g; this.b = b; this.w = w;
-    }
-    
-    public void set(double r, double g, double b)
-    {
-        this.r = (float) r; this.g = (float) g; this.b = (float) b;
+    {        
+        this.setTo(new Color4_b(color.getRed(), color.getGreen(), color.getBlue()));
     }
     
     public Color getColorFX()
     {
-        return new Color(r, g, b, w);
+        return new Color(r(), g(), b(), 1);
     }
 
-    public Color4_b copy()
-    {
-        return new Color4_b(r, g, b, w);
-    }
-    
-    private float[] getArray()
-    {
-        return new float[]{r, g, b, w};
-    }
     
     public bitmap.Color getBitmapColor()
     {        
-        return new bitmap.Color(r, g, b);
+        return new bitmap.Color(r(), g(), b());
+    }
+    
+    @Override
+    public Spectrum convert(Spectrum s2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public float y() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public Color4_b newInstance() {
+        try {
+            CoefficientSpectrum that = (CoefficientSpectrum) super.clone();           
+            that.c = new float[c.length];
+            return (Color4_b) that;
+        } catch (CloneNotSupportedException ex) {
+            throw new InternalError(ex);
+        }
+    }
+    
+    @Override
+    public Color4_b copy() {
+        try {
+            Color4_b that = (Color4_b) super.clone();
+            that.c = Arrays.copyOf(c, c.length);
+            return that;
+        } catch (CloneNotSupportedException ex) {
+            throw new InternalError(ex);
+        }
     }
     
     @Override
     public String toString()
     {
-        float[] array = getArray();
-        return String.format("(%3.2f, %3.2f, %3.2f, %3.2f)", array[0], array[1], array[2], array[3]);
-    }
-
-    public void mulAssign(Color4_b c) {
-        r *= c.r;
-        g *= c.g;
-        b *= c.b;
-    }
-
-    public final boolean isBad()
-    {
-        return (Float.isNaN(this.r)) || (Float.isNaN(this.g)) || (Float.isNaN(this.b)) ||
-               (Float.isInfinite(this.r)) || (Float.isInfinite(this.g)) || (Float.isInfinite(this.b));
+        return String.format("(%3.2f, %3.2f, %3.2f)", c[0], c[1], c[2]);
     }
 }

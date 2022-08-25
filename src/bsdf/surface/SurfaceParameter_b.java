@@ -5,7 +5,6 @@
  */
 package bsdf.surface;
 
-import bitmap.Color;
 import bsdf.geom.Color4_b;
 import bsdf.geom.Point3_b;
 
@@ -22,13 +21,13 @@ public class SurfaceParameter_b{
     
     //brdf parameters
     public Color4_b          diffuse_color;
-    public Point3_b          diffuse_param;
+    public Point3_b          diffuse_param;     //x = scale
     public Color4_b          glossy_color;
-    public Point3_b          glossy_param;
+    public Point3_b          glossy_param;      //x = scale, y = ax, z = ay
     public Color4_b          mirror_color;
-    public Point3_b          mirror_param;
+    public Point3_b          mirror_param;      //x = scale, y = ior, when IOR >= 0, we also transmit (just clear glass)
     public Color4_b          emission_color;
-    public Point3_b          emission_param;
+    public Point3_b          emission_param;    //x = scale, y = power
     
     public SurfaceParameter_b()
     {

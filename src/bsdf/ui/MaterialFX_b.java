@@ -25,7 +25,7 @@ import bsdf.abstracts.MaterialInterface_b;
  */
 public class MaterialFX_b implements Serializable, MaterialInterface_b<MaterialFX_b>{
     //surface
-    public transient SurfaceParameterFX_b param; 
+    public transient SurfaceParameterFX_b<MaterialFX_b> param; 
     public transient StringProperty name;    
     private transient Material_b cmaterial;
     
@@ -37,7 +37,7 @@ public class MaterialFX_b implements Serializable, MaterialInterface_b<MaterialF
     
     public MaterialFX_b()
     {
-        param = new SurfaceParameterFX_b();        
+        param = new SurfaceParameterFX_b(this);        
         name = new SimpleStringProperty("default");
     }
     
@@ -67,7 +67,7 @@ public class MaterialFX_b implements Serializable, MaterialInterface_b<MaterialF
     
     public final void init()
     {
-        param = new SurfaceParameterFX_b();        
+        param = new SurfaceParameterFX_b(this);        
         name = new SimpleStringProperty("default");
     }
     

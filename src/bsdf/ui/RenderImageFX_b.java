@@ -10,9 +10,11 @@ import bitmap.RGBSpace;
 import bitmap.XYZ;
 import bitmap.core.BitmapInterface;
 import bitmap.image.BitmapRGB;
+import coordinate.atomics.AtomicFloat;
 import coordinate.utility.Utility;
 import static java.lang.Math.exp;
 import static java.lang.Math.log;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 import javafx.scene.image.Image;
 
 /**
@@ -25,10 +27,10 @@ public class RenderImageFX_b  implements BitmapInterface {
     private final int width;
     private final int height;
     
-    private final Color[] accum;    
+    private final AtomicReferenceArray<Color> accum;    
     private final BitmapRGB bitmap;
         
-    private float count = 0;
+    private final AtomicFloat count = new AtomicFloat();
     
     private float logwTotal = 0;
     private float logwCount = 0;
@@ -38,12 +40,12 @@ public class RenderImageFX_b  implements BitmapInterface {
     {
         this.width = width;
         this.height = height;
-        this.accum = new Color[width * height];
+        this.accum = new AtomicReferenceArray(width * height);
         this.bitmap = new BitmapRGB(width, height);
         
         for(int i = 0; i<(width * height); i++)
         {
-            accum[i] = new Color();            
+            accum.set(i, new Color());            
         }
     }
     private void initAllLogW()
@@ -59,14 +61,15 @@ public class RenderImageFX_b  implements BitmapInterface {
     
     public void addAccum(Color color, int index)
     {
-        accum[index].addAssign(color);
+        if(!color.isBad())
+            accum.getAndAccumulate(index, color, (u, v)-> u.add(v));
     }
     
     private int[] pixel(int index)
     {
         int[] pixel = new int[2];
         pixel[0] = index % width;
-        pixel[1] = index / height;
+        pixel[1] = index / width;
         return pixel;
     }
     
@@ -81,16 +84,18 @@ public class RenderImageFX_b  implements BitmapInterface {
             logAverageLum = (float) exp(logAverageLum);
         }
         
+        logAverageLum = 0.08f; //default
+        
         this.initLogW();
         
-        if(count > 0)
-            for(int i = 0; i<accum.length; i++)
+        if(count.get() > 0)
+            for(int i = 0; i<accum.length(); i++)
             {
                 int[] pixel = pixel(i);
                 int x = pixel[0];
                 int y = pixel[1];
 
-                Color color = accum[i].copy();
+                Color color = accum.get(i).copy();
                 color.divAssign(count());
                 
                 float lum = color.luminance();
@@ -150,12 +155,12 @@ public class RenderImageFX_b  implements BitmapInterface {
     
     public float count()
     {
-        return count;
+        return count.get();
     }
     
     public void incrementCount()
     {
-        count++;
+        count.incrementAndGet();
     }
     
     public void setGamma(float value)
@@ -190,11 +195,12 @@ public class RenderImageFX_b  implements BitmapInterface {
    
     @Override
     public void clear(){
-        count = 0;
-        initAllLogW();        
-        for(int i = 0; i<accum.length; i++)
+        count.set(0);
+        initAllLogW();  
+        
+        for(int i = 0; i<accum.length(); i++)
         {
-            accum[i] = new Color();
+            accum.set(i, new Color());
             int pixel[] = pixel(i);
             bitmap.writeColor(new Color(), gamma, pixel[0], pixel[1]);
         }

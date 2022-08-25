@@ -15,7 +15,7 @@ import bsdf.abstracts.MaterialInterface_b;
 public class Material_b implements MaterialInterface_b<Material_b>{
      //surface
     public SurfaceParameter_b param; 
-       
+    public String name;   
 
     public Material_b()
     {
@@ -24,14 +24,31 @@ public class Material_b implements MaterialInterface_b<Material_b>{
     
     public void setDiffuse(float r, float g, float b)
     {
-        param.diffuse_color.set(r, g, b);        
+        param.diffuse_color.setTo(r, g, b);        
     }
     
     public void setEmitter(float r, float g, float b)
     {
-        param.emission_color.set(r, g, b);
+        param.emission_color.setTo(r, g, b);
         param.emission_param.set('x', 1);
         param.emission_param.set('y', 15);        
+    }
+    
+    public void enableEmitter()
+    {
+        param.emission_param.set('x', 1);
+        param.emission_param.set('y', 15);        
+    }
+    
+    public void disableEmitter()
+    {
+        param.emission_param.set('x', 0);
+        param.emission_param.set('y', 0);        
+    }
+    
+    public boolean isEmitter()
+    {
+        return param.emission_param.get('x') == 1;       
     }
     
     @Override
@@ -53,6 +70,29 @@ public class Material_b implements MaterialInterface_b<Material_b>{
 
     @Override
     public void setMaterialT(MaterialT mat) {
-        param.diffuse_color.set(mat.diffuse.r, mat.diffuse.g, mat.diffuse.b, mat.diffuse.w);      
+        param.diffuse_color.setTo(mat.diffuse.r, mat.diffuse.g, mat.diffuse.b);  
+        param.diffuse_param.set('x', mat.diffuseWeight);
+                
+        param.emission_color.setTo(mat.emitter.r, mat.emitter.g, mat.emitter.b);  
+        param.emission_param.set('x', mat.emitterEnabled ? 1 : 0);
+        param.emission_param.set('y', mat.emitter.w);
+        
+        name = mat.getNameString();
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return name;
     }
 }

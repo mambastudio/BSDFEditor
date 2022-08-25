@@ -30,6 +30,11 @@ public class Point3_b implements SCoord<Point3_b, Vector3_b> {
         this.x = x; this.y = y; this.z = z;
     }
     
+    public Point3_b(double x, double y, double z)
+    {
+        this((float)x, (float)y, (float)z);
+    }
+    
     public Point3_b(Point3_b p)
     {
         this(p.x, p.y, p.z);

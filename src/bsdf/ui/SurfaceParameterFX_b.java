@@ -6,11 +6,15 @@
 package bsdf.ui;
 
 
+import bsdf.MaterialEditor;
+import bsdf.surface.Material_b;
 import bsdf.surface.SurfaceParameter_b;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -23,8 +27,9 @@ import jfx.dnd.WriteObjectsHelper;
 /**
  *
  * @author user
+ * @param <T>
  */
-public class SurfaceParameterFX_b implements Serializable {
+public class SurfaceParameterFX_b<T> implements Serializable {
     public transient BooleanProperty          textureTitledPaneExpanded;    
     public transient BooleanProperty          diffuseTitledPaneExpanded;    
     public transient BooleanProperty          glossyTitledPaneExpanded;    
@@ -39,17 +44,22 @@ public class SurfaceParameterFX_b implements Serializable {
     
     //brdf parameters
     public transient ObjectProperty<Color>    diffuse_color;
-    public transient Point3FX_b                 diffuse_param;
+    public transient Point3FX_b               diffuse_param;
     public transient ObjectProperty<Color>    glossy_color;
-    public transient Point3FX_b                 glossy_param;
+    public transient Point3FX_b               glossy_param;
     public transient ObjectProperty<Color>    mirror_color;
-    public transient Point3FX_b                 mirror_param;
+    public transient Point3FX_b               mirror_param;
     public transient ObjectProperty<Color>    emission_color;
-    public transient Point3FX_b                 emission_param;
+    public transient Point3FX_b               emission_param;
     
-    public SurfaceParameterFX_b()
+    private final T t;
+    
+    private ObjectBinding binding = null;
+    
+    public SurfaceParameterFX_b(T t)
     {
         init();
+        this.t = t;
     }
     
     public final void init()
@@ -74,11 +84,30 @@ public class SurfaceParameterFX_b implements Serializable {
         mirror_param    = new Point3FX_b(0, -0.01f, 0);
         emission_color  = new SimpleObjectProperty(Color.web("#f2f2f2"));
         emission_param  = new Point3FX_b(0, 1f, 0);
+        
+        binding = Bindings.createObjectBinding(()-> {return new SimpleObjectProperty();}, 
+                diffuseTexture.get().imageProperty(), glossyTexture.get().imageProperty(), 
+                roughnessTexture.get().imageProperty(), mirrorTexture.get().imageProperty(),
+                diffuse_color, diffuse_param.getObservable(), glossy_color, glossy_param.getObservable(), 
+                mirror_color, mirror_param.getObservable(), emission_color, emission_param.getObservable());
+        
+        binding.addListener((obs, ov, nv)->{
+            if(MaterialEditor.getPathTracer() != null)
+            {
+                //where you apply the material to bsdf scene after editing
+                Material_b mat = MaterialEditor.getSceneMaterial(2);
+                mat.setSurfaceParameter(getSurfaceParameter());
+                //refresh image
+                MaterialEditor.getPathTracer().shouldClearImage();
+            }
+        });
+        
+       
     }
     
-    public SurfaceParameterFX_b copy()
+    public SurfaceParameterFX_b<T> copy()
     {
-        SurfaceParameterFX_b param = new SurfaceParameterFX_b();
+        SurfaceParameterFX_b<T> param = new SurfaceParameterFX_b(t);
         
         param.textureTitledPaneExpanded.set(textureTitledPaneExpanded.get());
         param.diffuseTitledPaneExpanded.set(diffuseTitledPaneExpanded.get());
@@ -102,7 +131,7 @@ public class SurfaceParameterFX_b implements Serializable {
         return param;
     }
     
-    public void set(SurfaceParameterFX_b param)
+    public void set(SurfaceParameterFX_b<T> param)
     {
         textureTitledPaneExpanded.set(param.textureTitledPaneExpanded.get());
         diffuseTitledPaneExpanded.set(param.diffuseTitledPaneExpanded.get());

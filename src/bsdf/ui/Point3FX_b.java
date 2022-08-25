@@ -5,18 +5,26 @@
  */
 package bsdf.ui;
 
+import bsdf.abstracts.VoidConsumer_b;
 import bsdf.geom.Point3_b;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.FloatBinding;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.value.ObservableValue;
 
 /**
  *
  * @author user
+ * @param <T>
  */
-public class Point3FX_b {
+public class Point3FX_b<T> {
     public FloatProperty x;
     public FloatProperty y;
     public FloatProperty z;
+    
+    private FloatBinding computed = null;
+    private VoidConsumer_b consumer = null;
     
     public Point3FX_b()
     {
@@ -44,7 +52,16 @@ public class Point3FX_b {
         x = new SimpleFloatProperty();
         y = new SimpleFloatProperty();
         z = new SimpleFloatProperty();
+        
+        this.computed = Bindings.createFloatBinding(
+                () -> x.get() + y.get() + z.get(),
+                x, y, z);
+        this.computed.addListener((o, ov, nv)->{
+            if(consumer != null)
+                consumer.run();
+        });
     }
+    
     
     public float getX()
     {
@@ -110,4 +127,13 @@ public class Point3FX_b {
         z.setValue(p.get(2));
     }
     
+    public ObservableValue getObservable()
+    {
+        return computed;
+    }
+    
+    public void listenChange(VoidConsumer_b consumer)
+    {
+        this.consumer = consumer;
+    }
 }

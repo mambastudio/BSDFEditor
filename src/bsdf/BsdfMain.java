@@ -8,7 +8,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class BsdfMain extends Application{
-    
     public static void main(String... args)
     {
         launch(args);
@@ -17,12 +16,13 @@ public class BsdfMain extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         StackPane root = new StackPane();
-        Scene scene = new Scene(root, 600, 500);
+        Scene scene = new Scene(root);
        
-        root.getChildren().add(new MaterialEditor(new MaterialFX_b()));
+        root.getChildren().add(new MaterialEditor(new MaterialFX_b("Josto")));
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
+                
         primaryStage.show();
     }
     

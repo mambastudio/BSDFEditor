@@ -6,7 +6,7 @@
 package bsdf.surface;
 
 import bsdf.geom.Vector3_b;
-import coordinate.generic.AbstractFrame;
+import coordinate.surface.AbstractFrame;
 
 /**
  *
