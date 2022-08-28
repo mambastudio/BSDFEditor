@@ -129,19 +129,19 @@ public class Bsdf_b {
     static float AlbedoDiffuse(Bsdf_b bsdf)
     {
        Color4_b color = bsdf.param.diffuse_color.mul(bsdf.param.diffuse_param.x);
-       return color.luminance();
+       return color.y();
     }
 
     static float AlbedoGlossy(Bsdf_b bsdf)
     {
        Color4_b color = bsdf.param.glossy_color.mul(bsdf.param.glossy_param.x);
-       return color.luminance();
+       return color.y();
     }
 
     static float AlbedoReflect(Bsdf_b bsdf)
     {
        Color4_b color = bsdf.param.mirror_color.mul(bsdf.param.mirror_param.x);
-       return color.luminance();
+       return color.y();
     }
 
     static float AlbedoRefract(Bsdf_b bsdf)
