@@ -129,19 +129,19 @@ public class Bsdf_b {
     static float AlbedoDiffuse(Bsdf_b bsdf)
     {
        Color4_b color = bsdf.param.diffuse_color.mul(bsdf.param.diffuse_param.x);
-       return color.y();
+       return color.Y();
     }
 
     static float AlbedoGlossy(Bsdf_b bsdf)
     {
        Color4_b color = bsdf.param.glossy_color.mul(bsdf.param.glossy_param.x);
-       return color.y();
+       return color.Y();
     }
 
     static float AlbedoReflect(Bsdf_b bsdf)
     {
        Color4_b color = bsdf.param.mirror_color.mul(bsdf.param.mirror_param.x);
-       return color.y();
+       return color.Y();
     }
 
     static float AlbedoRefract(Bsdf_b bsdf)
@@ -412,7 +412,7 @@ public class Bsdf_b {
 
        // Section 4.1: orthonormal basis (with special case if cross product is zero)
        float lensq     = Vh.x * Vh.x + Vh.y * Vh.y;
-       //Vector3_b T1       = select((float4)(1, 0, 0, 0), (float4)(-Vh.y, Vh.x, 0, 0) * rsqrt(lensq), (int4)((lensq > 0) <<31)); 
+       //Vector3_b T1       = select((float4)(1, 0, 0, 0), (float4)(-Vh.Y, Vh.x, 0, 0) * rsqrt(lensq), (int4)((lensq > 0) <<31)); 
        Vector3_b T1    = lensq > 0 ? new Vector3_b(-Vh.y, Vh.x, 0).div((float)Math.sqrt(lensq)) : new Vector3_b(1, 0, 0);
        Vector3_b T2    = Vector3_b.cross(Vh, T1);
 
@@ -479,7 +479,7 @@ public class Bsdf_b {
 
     Vector3_b reflectLocal(Vector3_b v)
     {
-        //return (float4)(-v.x, -v.y, v.z, 0);
+        //return (float4)(-v.x, -v.Y, v.z, 0);
         return reflectFromN(v, new Vector3_b(0, 0, 1));
     }
 

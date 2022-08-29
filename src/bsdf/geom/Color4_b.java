@@ -6,7 +6,7 @@
 package bsdf.geom;
 
 import bitmap.spectrum.CoefficientSpectrum;
-import bitmap.Spectrum;
+import bitmap.spectrum.Spectrum;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 
@@ -69,12 +69,7 @@ public class Color4_b extends CoefficientSpectrum<Color4_b>{
     }
     
     @Override
-    public Spectrum convert(Spectrum s2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public float y() {
+    public float Y() {
         return 0.212671f * r() + 
                0.715160f * g() +
                0.072169f * b();
