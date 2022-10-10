@@ -5,8 +5,7 @@
  */
 package bsdf.geom;
 
-import bitmap.spectrum.CoefficientSpectrum;
-import bitmap.spectrum.Spectrum;
+import bitmap.spectrum.generic.CoefficientSpectrum;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 
