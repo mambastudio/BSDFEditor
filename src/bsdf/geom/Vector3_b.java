@@ -12,7 +12,7 @@ import coordinate.utility.Utility;
  *
  * @author user
  */
-public class Vector3_b implements VCoord<Vector3_b>{
+public class Vector3_b implements VCoord<Point3_b, Vector3_b>{
     
     public float x, y, z;
     

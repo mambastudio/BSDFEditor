@@ -19,7 +19,7 @@ import static java.lang.Float.max;
 import static java.lang.Math.abs;
 import static bsdf.surface.Bsdf_b.Events.kDiffuse;
 import static bsdf.surface.Bsdf_b.Events.kGlossy;
-import coordinate.surface.Frame;
+import coordinate.surface.frame.Frame;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.pow;

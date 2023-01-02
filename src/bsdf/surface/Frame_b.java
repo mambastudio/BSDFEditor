@@ -5,14 +5,15 @@
  */
 package bsdf.surface;
 
+import bsdf.geom.Point3_b;
 import bsdf.geom.Vector3_b;
-import coordinate.surface.AbstractFrame;
+import coordinate.surface.frame.AbstractFrame;
 
 /**
  *
  * @author user
  */
-public class Frame_b implements AbstractFrame<Vector3_b> {
+public class Frame_b implements AbstractFrame<Point3_b, Vector3_b> {
     private Vector3_b mX, mY, mZ;
     
     public Frame_b()

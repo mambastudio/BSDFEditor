@@ -159,7 +159,7 @@ public class TriangleMesh_b extends AbstractMesh<Point3_b, Vector3_b, Point2_b> 
         Point3_b p3 = getVertex3(primID);
         float[] tuv = new float[3];
         
-        Face face = this.getFace(primID);
+        FaceIndices face = this.getFace(primID);
         
         if(mollerIntersection(r, tuv, p1, p2, p3))
         {
@@ -367,7 +367,7 @@ public class TriangleMesh_b extends AbstractMesh<Point3_b, Vector3_b, Point2_b> 
     
     public Material_b getMaterialFromPrimID(int primID)
     {
-        Face face = this.getFace(primID);
+        FaceIndices face = this.getFace(primID);
         return this.getMaterial(face.mat);
     }
 }

@@ -6,7 +6,7 @@
 package bsdf.geom;
 
 import coordinate.model.CameraModel;
-import coordinate.model.Transform;
+import coordinate.transform.Transform;
 
 /**
  *
