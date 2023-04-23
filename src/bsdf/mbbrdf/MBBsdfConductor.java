@@ -8,7 +8,6 @@ package bsdf.mbbrdf;
 import bitmap.spectrum.surface.ConductorFresnel;
 import bsdf.geom.Color4_b;
 import bsdf.geom.Vector3_b;
-import static bsdf.surface.MaterialUtility_b.fresnelConductorExact;
 import coordinate.surface.frame.Frame;
 import coordinate.surface.microfacet.MicrofacetGGX;
 import static coordinate.utility.Utility.acosf;
@@ -16,6 +15,7 @@ import static coordinate.utility.Utility.powf;
 import static coordinate.utility.Utility.sinf;
 import static coordinate.utility.Utility.sqrtf;
 import coordinate.utility.Value1Df;
+import coordinate.utility.Value2Df;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -240,7 +240,43 @@ public class MBBsdfConductor {
         return  G1* wi.absDot(m) * m_distr.evaluate(m) / Math.abs(Frame.cosTheta(wi));
     }
     
+    Vector3_b sampleWi(Vector3_b wi, Value2Df rand, Value1Df pdf) 
+    {
+        Vector3_b m;
+        /* Sample M, the microfacet normal */            
+        m = m_distr.sampleVisible(wi, rand);
+        pdf.x = pdfVisible(wi, m); 
+
+        Vector3_b wo = (Vector3_b) Frame.reflect(wi, m); 
+        pdf.x /= (4.0f * wo.absDot(m));
+        return wo;
+    }
     
+    float pdfWi(BSDFSamplingRecord bRec) 
+    {
+        Vector3_b H = bRec.wo.add(bRec.wi).normalize();
+        float pdf = pdfVisible(bRec.wi, H);
+
+        return pdf / (4.0f * bRec.wo.absDot(H));
+    }
+    
+    float pdfWi(Vector3_b wi, Vector3_b wo, float inLamda)
+    {
+        Vector3_b m = wo.add(wi).normalize();
+        float G1 = 1.0f / (1 + inLamda);
+        float pdf = G1* m_distr.evaluate(m) / (4 * Math.abs(Frame.cosTheta(wi))); 
+
+        return pdf;
+    }
+    
+    float pdfWi(BSDFSamplingRecord bRec, float inLamda) 
+    {
+            Vector m = normalize(bRec.wo + bRec.wi);
+            float G1 = 1.0f / (1 + inLamda);
+            float pdf = G1* m_distr->eval(m) / (4 * std::abs(Frame::cosTheta(bRec.wi)));
+
+            return pdf;
+    }
     
     class PathSimple
     {
